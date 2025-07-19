@@ -6,18 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('rides', function (Blueprint $table) {
             $table->id();
 
-            // Driver (nullable until accepted)
+            // Rider profile (required passenger)
+            $table->foreignId('rider_id')
+                ->constrained('riders')
+                ->onDelete('cascade');
+
+            // Driver profile (optional until assigned)
             $table->foreignId('driver_id')
                 ->nullable()
-                ->constrained('users')
+                ->constrained('drivers')
                 ->onDelete('set null');
 
             // Coordinates
@@ -29,15 +31,13 @@ return new class extends Migration
             // Ride lifecycle & payment status
             $table->enum('status', ['requested', 'accepted', 'in_progress', 'completed', 'canceled'])
                 ->default('requested');
+
             $table->boolean('has_paid')->default(false);
 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('rides');
