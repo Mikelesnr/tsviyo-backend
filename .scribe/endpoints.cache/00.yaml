@@ -9,15 +9,14 @@ endpoints:
     uri: api/user
     metadata:
       groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Get the authenticated user.'
-      description: 'Requires a valid Sanctum token in the Authorization header.'
-      authenticated: true
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
       custom: []
     headers:
-      Authorization: 'Bearer {YOUR_API_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -27,23 +26,219 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "id": 1,
-            "name": "Michael Mwanza",
-            "email": "michael@example.com"
-          }
-        headers: []
-        description: ''
-        custom: []
+    responses: []
     responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 6g43cv8PD1aE5beadkZfhV6
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/register
+    metadata:
+      groupName: Endpoints
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/login
+    metadata:
+      groupName: Endpoints
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/forgot-password
+    metadata:
+      groupName: Endpoints
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/reset-password
+    metadata:
+      groupName: Endpoints
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/auth/email/verify/{id}/{hash}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/logout
+    metadata:
+      groupName: Endpoints
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/email/verify/resend
+    metadata:
+      groupName: Endpoints
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
     controller: null
     method: null
     route: null
@@ -54,15 +249,14 @@ endpoints:
     uri: api/auth/me
     metadata:
       groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Get current authenticated user.'
-      description: 'Returns user details based on token.'
-      authenticated: true
+      groupDescription: null
+      subgroup: null
+      subgroupDescription: null
+      title: null
+      description: null
+      authenticated: false
       custom: []
     headers:
-      Authorization: 'Bearer {YOUR_API_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -72,23 +266,9 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "id": 1,
-            "name": "Michael Mwanza",
-            "email": "michael@example.com"
-          }
-        headers: []
-        description: ''
-        custom: []
+    responses: []
     responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 6g43cv8PD1aE5beadkZfhV6
+    auth: []
     controller: null
     method: null
     route: null
