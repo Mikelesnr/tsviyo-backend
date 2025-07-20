@@ -7,7 +7,7 @@ php artisan config:cache
 
 echo "Caching routes..."
 php artisan route:cache
-php artisan config:clear && php artisan scribe:generate
+php artisan scribe:generate
 
 echo "Running migrations..."
 php artisan migrate --force
