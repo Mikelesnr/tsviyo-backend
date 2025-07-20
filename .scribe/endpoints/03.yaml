@@ -1,0 +1,121 @@
+name: 'Email Verification'
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: 'api/auth/email/verify/{id}/{hash}'
+    metadata:
+      groupName: 'Email Verification'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Verify the user's email via link."
+      description: 'This endpoint is accessed from the verification email. Redirects to frontend.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The user ID.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      hash:
+        name: hash
+        description: "SHA1 hash of the user's email."
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 16
+      hash: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 302
+        content: 'Redirect to frontend with verification status.'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 403
+        content: |-
+          {
+              "message": "Invalid signature."
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/email/verify/resend
+    metadata:
+      groupName: 'Email Verification'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Resend verification email if user's email is not verified."
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Email already verified."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 202
+        content: |-
+          {
+            "message": "Verification email sent."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
