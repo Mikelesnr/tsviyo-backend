@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+
 
 /**
  * Get the authenticated user.
@@ -21,4 +23,13 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
     require base_path('routes/auth.php');
+});
+
+Route::get('/debug', function () {
+    Log::info([
+        'scheme' => request()->getScheme(),
+        'host' => request()->getHost(),
+        'headers' => request()->headers->all(),
+    ]);
+    return response()->json(['status' => 'debug info logged']);
 });
