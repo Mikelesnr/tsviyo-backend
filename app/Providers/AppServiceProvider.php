@@ -34,11 +34,14 @@ class AppServiceProvider extends ServiceProvider
         });
 
         VerifyEmail::createUrlUsing(function ($notifiable) {
-            $url = config('app.url') . "/api/auth/email/verify";
-            $id = $notifiable->getKey();
-            $hash = sha1($notifiable->getEmailForVerification());
-
-            return "{$url}/{$id}/{$hash}";
+            return URL::temporarySignedRoute(
+                'verification.verify',
+                now()->addMinutes(config('auth.verification.expire', 60)),
+                [
+                    'id' => $notifiable->getKey(),
+                    'hash' => sha1($notifiable->getEmailForVerification()),
+                ]
+            );
         });
     }
 }

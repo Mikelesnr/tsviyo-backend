@@ -54,6 +54,26 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         custom: []
+      phone:
+        name: phone
+        description: 'optional A phone number for contact. Can be null.'
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        custom: []
+      role:
+        name: role
+        description: 'optional The user''s role. Must be one of: admin, driver, rider. Defaults to "rider" if not provided.'
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        custom: []
       password_confirmation:
         name: password_confirmation
         description: 'Must match password.'
@@ -68,6 +88,8 @@ endpoints:
       name: architecto
       email: gbailey@example.net
       password: '|]|{+-'
+      phone: architecto
+      role: architecto
       password_confirmation: architecto
     fileParameters: []
     responses:
@@ -75,7 +97,13 @@ endpoints:
         status: 201
         content: |-
           {
-            "user": { "id": 1, "email": "michael@example.com" },
+            "user": {
+              "id": 1,
+              "name": "Michael Mwanza",
+              "email": "michael@example.com",
+              "phone": "0771234567",
+              "role": "rider"
+            },
             "access_token": "token-string",
             "token_type": "Bearer"
           }
