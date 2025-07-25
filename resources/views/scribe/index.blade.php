@@ -130,7 +130,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: July 20, 2025</li>
+        <li>Last updated: July 25, 2025</li>
     </ul>
 </div>
 
@@ -173,6 +173,8 @@ You can switch the language used with the tabs at the top right (or from the nav
     \"name\": \"architecto\",
     \"email\": \"gbailey@example.net\",
     \"password\": \"|]|{+-\",
+    \"phone\": \"architecto\",
+    \"role\": \"architecto\",
     \"password_confirmation\": \"architecto\"
 }"
 </code></pre></div>
@@ -192,6 +194,8 @@ let body = {
     "name": "architecto",
     "email": "gbailey@example.net",
     "password": "|]|{+-",
+    "phone": "architecto",
+    "role": "architecto",
     "password_confirmation": "architecto"
 };
 
@@ -212,7 +216,10 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;user&quot;: {
         &quot;id&quot;: 1,
-        &quot;email&quot;: &quot;michael@example.com&quot;
+        &quot;name&quot;: &quot;Michael Mwanza&quot;,
+        &quot;email&quot;: &quot;michael@example.com&quot;,
+        &quot;phone&quot;: &quot;0771234567&quot;,
+        &quot;role&quot;: &quot;rider&quot;
     },
     &quot;access_token&quot;: &quot;token-string&quot;,
     &quot;token_type&quot;: &quot;Bearer&quot;
@@ -321,6 +328,28 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>Must be confirmed. Example: <code>|]|{+-</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="phone"                data-endpoint="POSTapi-auth-register"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>optional A phone number for contact. Can be null. Example: <code>architecto</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>role</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="role"                data-endpoint="POSTapi-auth-register"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>optional The user's role. Must be one of: admin, driver, rider. Defaults to &quot;rider&quot; if not provided. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;

@@ -19,7 +19,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
  * @bodyParam password string required The user’s password.
  * @bodyParam password_confirmation string required Must match password.
  * @response 201 {
- *   "user": { "id": 1, "email": "michael@example.com" },
+ *   "user": { "id": 1, "email": "michael@example.com", "role", "rider" },
  *   "access_token": "token-string",
  *   "token_type": "Bearer"
  * }
