@@ -66,6 +66,19 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
+                    <ul id="tocify-header-admin-driver-management" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="admin-driver-management">
+                    <a href="#admin-driver-management">Admin - Driver Management</a>
+                </li>
+                                    <ul id="tocify-subheader-admin-driver-management" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="admin-driver-management-POSTapi-driver-profile">
+                                <a href="#admin-driver-management-POSTapi-driver-profile">Create a driver profile for a user.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="admin-driver-management-PATCHapi-driver-profile--id-">
+                                <a href="#admin-driver-management-PATCHapi-driver-profile--id-">Update a driver’s profile.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-admin-management" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="admin-management">
                     <a href="#admin-management">Admin Management</a>
@@ -299,7 +312,452 @@ You can switch the language used with the tabs at the top right (or from the nav
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p>
 
-        <h1 id="admin-management">Admin Management</h1>
+        <h1 id="admin-driver-management">Admin - Driver Management</h1>
+
+    <p>Endpoints for managing driver profiles. Accessible to admins only.</p>
+
+                                <h2 id="admin-driver-management-POSTapi-driver-profile">Create a driver profile for a user.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Only allowed if the user’s role is &quot;driver&quot;. Fails if a profile already exists.</p>
+
+<span id="example-requests-POSTapi-driver-profile">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://tsviyo-backend.onrender.com/api/driver/profile" \
+    --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"user_id\": 25,
+    \"license_number\": \"\\\"DLX-0071\\\"\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://tsviyo-backend.onrender.com/api/driver/profile"
+);
+
+const headers = {
+    "Authorization": "string required Bearer token used to authenticate the request. Example: &amp;quot;Bearer your-token&amp;quot;",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "user_id": 25,
+    "license_number": "\"DLX-0071\""
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-driver-profile">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Driver profile created&quot;,
+    &quot;driver&quot;: {
+        &quot;id&quot;: 1,
+        &quot;user_id&quot;: 25,
+        &quot;license_number&quot;: &quot;DLX-0071&quot;,
+        &quot;is_activated&quot;: false,
+        &quot;is_online&quot;: false,
+        &quot;is_suspended&quot;: false
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;User must have the &#039;driver&#039; role.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Driver profile already exists.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-driver-profile" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-driver-profile"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-driver-profile"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-driver-profile" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-driver-profile">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-driver-profile" data-method="POST"
+      data-path="api/driver/profile"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-driver-profile', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-driver-profile"
+                    onclick="tryItOut('POSTapi-driver-profile');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-driver-profile"
+                    onclick="cancelTryOut('POSTapi-driver-profile');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-driver-profile"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/driver/profile</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-driver-profile"
+               value="string required Bearer token used to authenticate the request. Example: "Bearer your-token""
+               data-component="header">
+    <br>
+<p>Example: <code>string required Bearer token used to authenticate the request. Example: "Bearer your-token"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-driver-profile"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-driver-profile"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>user_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="user_id"                data-endpoint="POSTapi-driver-profile"
+               value="25"
+               data-component="body">
+    <br>
+<p>The ID of the user to link to the driver profile. Must be a user with role &quot;driver&quot;. Example: <code>25</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>license_number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="license_number"                data-endpoint="POSTapi-driver-profile"
+               value=""DLX-0071""
+               data-component="body">
+    <br>
+<p>The driver’s license number. Example: <code>"DLX-0071"</code></p>
+        </div>
+        </form>
+
+                    <h2 id="admin-driver-management-PATCHapi-driver-profile--id-">Update a driver’s profile.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Admins can modify license number, activation, suspension, and online status.</p>
+
+<span id="example-requests-PATCHapi-driver-profile--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "https://tsviyo-backend.onrender.com/api/driver/profile/1" \
+    --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"license_number\": \"\\\"DLX-0099\\\"\",
+    \"is_activated\": true,
+    \"is_online\": false,
+    \"is_suspended\": false
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://tsviyo-backend.onrender.com/api/driver/profile/1"
+);
+
+const headers = {
+    "Authorization": "string required Bearer token used to authenticate the request. Example: &amp;quot;Bearer your-token&amp;quot;",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "license_number": "\"DLX-0099\"",
+    "is_activated": true,
+    "is_online": false,
+    "is_suspended": false
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-driver-profile--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Driver profile updated&quot;,
+    &quot;driver&quot;: {
+        &quot;id&quot;: 1,
+        &quot;user_id&quot;: 25,
+        &quot;license_number&quot;: &quot;DLX-0099&quot;,
+        &quot;is_activated&quot;: true,
+        &quot;is_online&quot;: false,
+        &quot;is_suspended&quot;: false
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Driver not found&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-driver-profile--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-driver-profile--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-driver-profile--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-driver-profile--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-driver-profile--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-driver-profile--id-" data-method="PATCH"
+      data-path="api/driver/profile/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-driver-profile--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-driver-profile--id-"
+                    onclick="tryItOut('PATCHapi-driver-profile--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-driver-profile--id-"
+                    onclick="cancelTryOut('PATCHapi-driver-profile--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-driver-profile--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/driver/profile/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-driver-profile--id-"
+               value="string required Bearer token used to authenticate the request. Example: "Bearer your-token""
+               data-component="header">
+    <br>
+<p>Example: <code>string required Bearer token used to authenticate the request. Example: "Bearer your-token"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-driver-profile--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-driver-profile--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PATCHapi-driver-profile--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the driver profile. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>license_number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="license_number"                data-endpoint="PATCHapi-driver-profile--id-"
+               value=""DLX-0099""
+               data-component="body">
+    <br>
+<p>The new license number. Example: <code>"DLX-0099"</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>is_activated</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+                <label data-endpoint="PATCHapi-driver-profile--id-" style="display: none">
+            <input type="radio" name="is_activated"
+                   value="true"
+                   data-endpoint="PATCHapi-driver-profile--id-"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PATCHapi-driver-profile--id-" style="display: none">
+            <input type="radio" name="is_activated"
+                   value="false"
+                   data-endpoint="PATCHapi-driver-profile--id-"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Whether the driver is activated. Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>is_online</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+                <label data-endpoint="PATCHapi-driver-profile--id-" style="display: none">
+            <input type="radio" name="is_online"
+                   value="true"
+                   data-endpoint="PATCHapi-driver-profile--id-"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PATCHapi-driver-profile--id-" style="display: none">
+            <input type="radio" name="is_online"
+                   value="false"
+                   data-endpoint="PATCHapi-driver-profile--id-"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Whether the driver is currently online. Example: <code>false</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>is_suspended</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+                <label data-endpoint="PATCHapi-driver-profile--id-" style="display: none">
+            <input type="radio" name="is_suspended"
+                   value="true"
+                   data-endpoint="PATCHapi-driver-profile--id-"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PATCHapi-driver-profile--id-" style="display: none">
+            <input type="radio" name="is_suspended"
+                   value="false"
+                   data-endpoint="PATCHapi-driver-profile--id-"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Whether the driver is suspended. Example: <code>false</code></p>
+        </div>
+        </form>
+
+                <h1 id="admin-management">Admin Management</h1>
 
     
 

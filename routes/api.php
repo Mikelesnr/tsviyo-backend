@@ -10,6 +10,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DriverAdminController;
 
 /**
  * @group User
@@ -51,6 +52,21 @@ Route::middleware(['auth:sanctum', 'can:is-rider'])
         Route::post('/', [RiderController::class, 'upsert']);     // POST /rider
         Route::delete('/', [RiderController::class, 'destroy']);  // DELETE /rider
         Route::post('/payments', [PaymentController::class, 'store']); // POST /rider/payments
+    });
+
+/**
+ * @group Driver Profile Management
+ * APIs for drivers to manage their own profile data.
+ *
+ * These routes require Sanctum authentication and the 'driver' role.
+ *
+ * @authenticated
+ */
+Route::middleware(['auth:sanctum', 'can:is-driver'])
+    ->prefix('driver/profile')
+    ->group(function () {
+        Route::post('/', [DriverAdminController::class, 'store']); // POST /driver/profile
+        Route::patch('/{id}', [DriverAdminController::class, 'update']); // PATCH /driver/profile/{id}
     });
 
 /**
