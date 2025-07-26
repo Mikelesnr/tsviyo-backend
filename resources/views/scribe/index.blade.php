@@ -2154,7 +2154,7 @@ Returns total earnings for the authenticated driver based on completed payments 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
     --get "https://tsviyo-backend.onrender.com/api/driver/payments/summary" \
-    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -2165,7 +2165,7 @@ Returns total earnings for the authenticated driver based on completed payments 
 );
 
 const headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Authorization": "string required Bearer token used to authenticate the request. Example: &amp;quot;Bearer your-token&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2184,20 +2184,19 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
- &quot;driver_id&quot;: 9,
- &quot;month&quot;: &quot;July 2025&quot;,
- &quot;total_earnings&quot;: 432.75,
- &quot;rides_paid&quot;: 6,
- &quot;payments&quot;: [
-   {
-     &quot;id&quot;: 21,
-     &quot;ride_id&quot;: 105,
-     &quot;amount&quot;: &quot;72.50&quot;,
-     &quot;method&quot;: &quot;wallet&quot;,
-     &quot;created_at&quot;: &quot;2025-07-01T10:15:00Z&quot;
-   },
-   // ... more payments
- ]
+    &quot;driver_id&quot;: 9,
+    &quot;month&quot;: &quot;July 2025&quot;,
+    &quot;total_earnings&quot;: 432.75,
+    &quot;rides_paid&quot;: 6,
+    &quot;payments&quot;: [
+        {
+            &quot;id&quot;: 21,
+            &quot;ride_id&quot;: 105,
+            &quot;amount&quot;: &quot;72.50&quot;,
+            &quot;method&quot;: &quot;card&quot;,
+            &quot;created_at&quot;: &quot;2025-07-01T10:15:00Z&quot;
+        }
+    ]
 }</code>
  </pre>
     </span>
@@ -2254,10 +2253,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-driver-payments-summary"
-               value="Bearer {YOUR_AUTH_KEY}"
+               value="string required Bearer token used to authenticate the request. Example: "Bearer your-token""
                data-component="header">
     <br>
-<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+<p>Example: <code>string required Bearer token used to authenticate the request. Example: "Bearer your-token"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5130,7 +5129,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Sends a mock payment using the FakePaymentProvider and records it in the database.</p>
+<p>Sends a mock payment using the MockPaymentProvider and records it in the database.</p>
 
 <span id="example-requests-POSTapi-rider-payments">
 <blockquote>Example request:</blockquote>
@@ -5139,13 +5138,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
     "https://tsviyo-backend.onrender.com/api/rider/payments" \
-    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
     \"ride_id\": 12,
     \"amount\": 15.5,
-    \"method\": \"wallet\"
+    \"method\": \"cash\"
 }"
 </code></pre></div>
 
@@ -5156,7 +5155,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Authorization": "string required Bearer token used to authenticate the request. Example: &amp;quot;Bearer your-token&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5164,7 +5163,7 @@ const headers = {
 let body = {
     "ride_id": 12,
     "amount": 15.5,
-    "method": "wallet"
+    "method": "cash"
 };
 
 fetch(url, {
@@ -5187,7 +5186,7 @@ fetch(url, {
         &quot;id&quot;: 35,
         &quot;ride_id&quot;: 12,
         &quot;amount&quot;: &quot;15.50&quot;,
-        &quot;method&quot;: &quot;wallet&quot;,
+        &quot;method&quot;: &quot;cash&quot;,
         &quot;created_at&quot;: &quot;2025-07-26T01:58:12.000000Z&quot;
     },
     &quot;reference&quot;: &quot;MOCK-LJ7B9QX1&quot;,
@@ -5248,10 +5247,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-rider-payments"
-               value="Bearer {YOUR_AUTH_KEY}"
+               value="string required Bearer token used to authenticate the request. Example: "Bearer your-token""
                data-component="header">
     <br>
-<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+<p>Example: <code>string required Bearer token used to authenticate the request. Example: "Bearer your-token"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5304,10 +5303,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="method"                data-endpoint="POSTapi-rider-payments"
-               value="wallet"
+               value="cash"
                data-component="body">
     <br>
-<p>optional The payment method used. Default is &quot;fake_card&quot;. Example: <code>wallet</code></p>
+<p>optional The payment method used. One of: cash, card, mobile. Default is &quot;card&quot;. Example: <code>cash</code></p>
         </div>
         </form>
 
