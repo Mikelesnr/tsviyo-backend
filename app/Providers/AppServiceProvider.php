@@ -47,8 +47,8 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        Gate::define('is-admin', fn($user) => $user->role === UserRole::Admin);
-        Gate::define('is-driver', fn($user) => $user->role === UserRole::Driver);
-        Gate::define('is-rider', fn($user) => $user->role === UserRole::Rider);
+        Gate::define('is-admin', fn($user) => $user->role === UserRole::Admin->value);
+        Gate::define('is-driver', fn($user) => $user->role === UserRole::Driver->value);
+        Gate::define('is-rider', fn($user) => $user->role === UserRole::Rider->value);
     }
 }
