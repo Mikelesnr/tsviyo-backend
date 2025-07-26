@@ -10,8 +10,8 @@ endpoints:
       groupDescription: 'Endpoints for managing driver profiles. Accessible to admins only.'
       subgroup: ''
       subgroupDescription: ''
-      title: 'Create a driver profile for a user.'
-      description: 'Only allowed if the user’s role is "driver". Fails if a profile already exists.'
+      title: 'Create a driver profile for the authenticated user.'
+      description: "Only accessible to users with the 'driver' role."
       authenticated: true
       custom: []
     headers:
@@ -23,16 +23,6 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      user_id:
-        name: user_id
-        description: 'The ID of the user to link to the driver profile. Must be a user with role "driver".'
-        required: true
-        example: 25
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
       license_number:
         name: license_number
         description: 'The driver’s license number.'
@@ -44,7 +34,6 @@ endpoints:
         nullable: false
         custom: []
     cleanBodyParameters:
-      user_id: 25
       license_number: '"DLX-0071"'
     fileParameters: []
     responses:
@@ -66,10 +55,10 @@ endpoints:
         description: ''
         custom: []
       -
-        status: 400
+        status: 403
         content: |-
           {
-            "message": "User must have the 'driver' role."
+            "message": "Only drivers may create driver profiles."
           }
         headers: []
         description: ''

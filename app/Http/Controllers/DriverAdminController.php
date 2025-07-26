@@ -16,14 +16,13 @@ use App\Enums\UserRole;
 class DriverAdminController extends Controller
 {
     /**
-     * Create a driver profile for a user.
+     * Create a driver profile for the authenticated user.
      *
-     * Only allowed if the user’s role is "driver". Fails if a profile already exists.
+     * Only accessible to users with the 'driver' role.
      *
      * @authenticated
      * @header Authorization string required Bearer token used to authenticate the request. Example: "Bearer your-token"
      *
-     * @bodyParam user_id int required The ID of the user to link to the driver profile. Must be a user with role "driver". Example: 25
      * @bodyParam license_number string required The driver’s license number. Example: "DLX-0071"
      *
      * @response 201 {
@@ -37,8 +36,8 @@ class DriverAdminController extends Controller
      *     "is_suspended": false
      *   }
      * }
-     * @response 400 {
-     *   "message": "User must have the 'driver' role."
+     * @response 403 {
+     *   "message": "Only drivers may create driver profiles."
      * }
      * @response 409 {
      *   "message": "Driver profile already exists."
@@ -46,20 +45,19 @@ class DriverAdminController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'license_number' => 'required|string',
-        ]);
-
-        $user = User::findOrFail($request->user_id);
+        $user = Auth::user();
 
         if ($user->role !== UserRole::Driver->value) {
-            return response()->json(['message' => "User must have the 'driver' role."], 400);
+            return response()->json(['message' => 'Only drivers may create driver profiles.'], 403);
         }
 
         if ($user->driver) {
-            return response()->json(['message' => "Driver profile already exists."], 409);
+            return response()->json(['message' => 'Driver profile already exists.'], 409);
         }
+
+        $request->validate([
+            'license_number' => 'required|string',
+        ]);
 
         $driver = Driver::create([
             'user_id' => $user->id,
