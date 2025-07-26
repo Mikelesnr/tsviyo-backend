@@ -148,11 +148,11 @@ endpoints:
       subgroup: ''
       subgroupDescription: ''
       title: 'Simulate and store a ride payment.'
-      description: 'Sends a mock payment using the FakePaymentProvider and records it in the database.'
+      description: 'Sends a mock payment using the MockPaymentProvider and records it in the database.'
       authenticated: true
       custom: []
     headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -182,9 +182,9 @@ endpoints:
         custom: []
       method:
         name: method
-        description: 'optional The payment method used. Default is "fake_card".'
+        description: 'optional The payment method used. One of: cash, card, mobile. Default is "card".'
         required: false
-        example: wallet
+        example: cash
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -193,7 +193,7 @@ endpoints:
     cleanBodyParameters:
       ride_id: 12
       amount: 15.5
-      method: wallet
+      method: cash
     fileParameters: []
     responses:
       -
@@ -205,7 +205,7 @@ endpoints:
                "id": 35,
                "ride_id": 12,
                "amount": "15.50",
-               "method": "wallet",
+               "method": "cash",
                "created_at": "2025-07-26T01:58:12.000000Z"
            },
            "reference": "MOCK-LJ7B9QX1",

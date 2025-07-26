@@ -68,7 +68,7 @@ endpoints:
       authenticated: true
       custom: []
     headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -92,10 +92,9 @@ endpoints:
                "id": 21,
                "ride_id": 105,
                "amount": "72.50",
-               "method": "wallet",
+               "method": "card",
                "created_at": "2025-07-01T10:15:00Z"
-             },
-             // ... more payments
+             }
            ]
           }
         headers: []
