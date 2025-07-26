@@ -1,69 +1,16 @@
-name: Driver
+name: 'Driver Ride'
 description: ''
 endpoints:
   -
     httpMethods:
-      - POST
-    uri: api/driver/toggle-status
-    metadata:
-      groupName: Driver
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: "Toggle the driver's online status."
-      description: 'Drivers must be activated and not suspended to perform this action.'
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "message": "Driver status updated",
-            "is_online": true
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 403
-        content: '{"message": "Unauthorized or suspended driver"}'
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
       - GET
-    uri: api/driver/payments/summary
+    uri: api/driver/rides
     metadata:
-      groupName: Driver
+      groupName: 'Driver Ride'
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: |-
-        Retrieve a driver’s monthly payment summary.
-
-        Returns total earnings for the authenticated driver based on completed payments in the current month.
+      title: 'List rides assigned to the authenticated driver.'
       description: ''
       authenticated: true
       custom: []
@@ -80,23 +27,163 @@ endpoints:
     fileParameters: []
     responses:
       -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PATCH
+    uri: 'api/driver/rides/{ride_id}/accept'
+    metadata:
+      groupName: 'Driver Ride'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Accept a ride if it's not already taken."
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      ride_id:
+        name: ride_id
+        description: 'The ID of the ride.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      ride_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data": {"id": 1, "status": "accepted"}}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 409
+        content: '{"message": "Ride already assigned to a driver"}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PATCH
+    uri: 'api/driver/rides/{ride_id}/cancel'
+    metadata:
+      groupName: 'Driver Ride'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Cancel a ride after driver has accepted it.'
+      description: |-
+        This allows the driver to cancel their assigned ride if necessary,
+        such as for vehicle breakdowns or unresponsive passengers.
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      ride_id:
+        name: ride_id
+        description: 'The ID of the ride.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      ride:
+        name: ride
+        description: 'The ID of the ride to cancel.'
+        required: true
+        example: 7
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      ride_id: 1
+      ride: 7
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      reason:
+        name: reason
+        description: 'Explanation for cancellation.'
+        required: true
+        example: '"Car broke down"'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      reason: '"Car broke down"'
+    fileParameters: []
+    responses:
+      -
         status: 200
         content: |-
           {
-           "driver_id": 9,
-           "month": "July 2025",
-           "total_earnings": 432.75,
-           "rides_paid": 6,
-           "payments": [
-             {
-               "id": 21,
-               "ride_id": 105,
-               "amount": "72.50",
-               "method": "card",
-               "created_at": "2025-07-01T10:15:00Z"
-             }
-           ]
+            "message": "Ride cancelled by driver",
+            "reason": "Car broke down",
+            "data": {
+              "id": 7,
+              "status": "canceled"
+            }
           }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 403
+        content: '{"message": "Unauthorized"}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 403
+        content: '{"message": "Cannot cancel ride at this stage"}'
         headers: []
         description: ''
         custom: []
