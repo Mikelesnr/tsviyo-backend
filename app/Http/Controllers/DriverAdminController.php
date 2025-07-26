@@ -47,7 +47,7 @@ class DriverAdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role !== UserRole::Driver->value) {
+        if ($user->role !== UserRole::Driver) {
             return response()->json(['message' => 'Only drivers may create driver profiles.'], 403);
         }
 
