@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Ride;
+use App\Enums\PaymentMethod;
 
 class Payment extends Model
 {
@@ -14,6 +15,10 @@ class Payment extends Model
         'ride_id',
         'amount',
         'method',
+    ];
+
+    protected $casts = [
+        'method' => PaymentMethod::class,
     ];
 
     public function ride()
