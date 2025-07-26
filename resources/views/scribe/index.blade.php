@@ -72,7 +72,7 @@
                 </li>
                                     <ul id="tocify-subheader-admin-driver-management" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="admin-driver-management-POSTapi-driver-profile">
-                                <a href="#admin-driver-management-POSTapi-driver-profile">Create a driver profile for a user.</a>
+                                <a href="#admin-driver-management-POSTapi-driver-profile">Create a driver profile for the authenticated user.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="admin-driver-management-PATCHapi-driver-profile--id-">
                                 <a href="#admin-driver-management-PATCHapi-driver-profile--id-">Update a driver’s profile.</a>
@@ -316,13 +316,13 @@ You can switch the language used with the tabs at the top right (or from the nav
 
     <p>Endpoints for managing driver profiles. Accessible to admins only.</p>
 
-                                <h2 id="admin-driver-management-POSTapi-driver-profile">Create a driver profile for a user.</h2>
+                                <h2 id="admin-driver-management-POSTapi-driver-profile">Create a driver profile for the authenticated user.</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Only allowed if the user’s role is &quot;driver&quot;. Fails if a profile already exists.</p>
+<p>Only accessible to users with the 'driver' role.</p>
 
 <span id="example-requests-POSTapi-driver-profile">
 <blockquote>Example request:</blockquote>
@@ -335,7 +335,6 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": 25,
     \"license_number\": \"\\\"DLX-0071\\\"\"
 }"
 </code></pre></div>
@@ -353,7 +352,6 @@ const headers = {
 };
 
 let body = {
-    "user_id": 25,
     "license_number": "\"DLX-0071\""
 };
 
@@ -384,12 +382,12 @@ fetch(url, {
 }</code>
  </pre>
             <blockquote>
-            <p>Example response (400):</p>
+            <p>Example response (403):</p>
         </blockquote>
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;User must have the &#039;driver&#039; role.&quot;
+    &quot;message&quot;: &quot;Only drivers may create driver profiles.&quot;
 }</code>
  </pre>
             <blockquote>
@@ -484,17 +482,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>user_id</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user_id"                data-endpoint="POSTapi-driver-profile"
-               value="25"
-               data-component="body">
-    <br>
-<p>The ID of the user to link to the driver profile. Must be a user with role &quot;driver&quot;. Example: <code>25</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>license_number</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
