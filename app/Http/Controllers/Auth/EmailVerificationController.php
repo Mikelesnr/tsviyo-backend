@@ -12,6 +12,7 @@ class EmailVerificationController extends Controller
      *
      * @group Email Verification
      * @authenticated
+     * @header Authorization string required Bearer token used to authenticate the request. Example: "Bearer your-token"
      *
      * @response 202 {
      *   "message": "Verification email sent."

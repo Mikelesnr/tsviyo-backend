@@ -1,23 +1,24 @@
-name: User
+name: Debug
 description: ''
 endpoints:
   -
     httpMethods:
       - GET
-    uri: api/user
+    uri: api/debug
     metadata:
-      groupName: User
+      groupName: Debug
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: |-
-        Get the authenticated user profile.
-        Requires a valid Sanctum token in the Authorization header.
+        Logs incoming request metadata for troubleshooting.
+
+        Useful for inspecting request headers and host info.
       description: ''
       authenticated: true
       custom: []
     headers:
-      Authorization: 'string required Bearer token. Example: Bearer eyJ0eXAiOiJKV1QiLCJhbGci...'
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -32,9 +33,7 @@ endpoints:
         status: 200
         content: |-
           {
-            "id": 1,
-            "name": "Michael Mwanza",
-            "email": "michael@example.com"
+            "status": "debug info logged"
           }
         headers: []
         description: ''
