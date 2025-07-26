@@ -14,9 +14,10 @@ endpoints:
       subgroupDescription: ''
       title: 'Register a new user and issue an access token.'
       description: ''
-      authenticated: false
+      authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -111,7 +112,10 @@ endpoints:
         description: ''
         custom: []
     responseFields: []
-    auth: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -127,9 +131,10 @@ endpoints:
       subgroupDescription: ''
       title: 'Log in the user and return an access token.'
       description: ''
-      authenticated: false
+      authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -174,7 +179,10 @@ endpoints:
         description: ''
         custom: []
     responseFields: []
-    auth: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -189,10 +197,11 @@ endpoints:
       subgroup: ''
       subgroupDescription: ''
       title: 'Log out the authenticated user.'
-      description: ''
+      description: 'Revokes the current access token so the user is no longer authorized.'
       authenticated: true
       custom: []
     headers:
+      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -213,7 +222,10 @@ endpoints:
         description: ''
         custom: []
     responseFields: []
-    auth: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null

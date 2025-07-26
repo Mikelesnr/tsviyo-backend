@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\Gate;
+use App\Enums\UserRole;
+use App\Services\MockPaymentProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(MockPaymentProvider::class, fn($app) => new MockPaymentProvider());
     }
 
     /**
@@ -43,5 +46,9 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
         });
+
+        Gate::define('is-admin', fn($user) => $user->role === UserRole::Admin);
+        Gate::define('is-driver', fn($user) => $user->role === UserRole::Driver);
+        Gate::define('is-rider', fn($user) => $user->role === UserRole::Rider);
     }
 }

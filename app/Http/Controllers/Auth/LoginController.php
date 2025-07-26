@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,26 @@ class LoginController extends Controller
 
         /** @var \App\Models\User $user */
         $user = Auth::user();
+
+        // Optional: Check user role if you use roles
+        if ($user->role === 'driver') {
+            $driver = Driver::where('user_id', $user->id)->first();
+
+            if (! $driver) {
+                return response()->json(['message' => 'Driver profile not found'], 404);
+            }
+
+            if (! $driver->is_activated) {
+                return response()->json(['message' => 'Driver not activated'], 403);
+            }
+
+            if ($driver->is_suspended) {
+                return response()->json(['message' => 'Driver is suspended'], 403);
+            }
+
+            // Set driver online on login
+            $driver->update(['is_online' => true]);
+        }
 
         $token = $user->createToken('login_token')->plainTextToken;
 
