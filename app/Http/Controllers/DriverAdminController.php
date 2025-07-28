@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\UserRole;
+use App\Models\Image;
 
 /**
  * @group Admin - Driver Management
@@ -15,6 +16,59 @@ use App\Enums\UserRole;
  */
 class DriverAdminController extends Controller
 {
+    /**
+     * Get the authenticated user's driver profile and profile image.
+     *
+     * Only accessible to users with the 'driver' role.
+     *
+     * @authenticated
+     * @header Authorization string required Bearer token used to authenticate the request. Example: "Bearer your-token"
+     *
+     * @response 200 {
+     *   "driver": {
+     *     "id": 1,
+     *     "user_id": 25,
+     *     "license_number": "DLX-0071",
+     *     "is_activated": false,
+     *     "is_online": false,
+     *     "is_suspended": false
+     *   },
+     *   "image": {
+     *     "url": "https://example.com/images/avatar.jpg",
+     *     "type": "profile"
+     *   }
+     * }
+     * @response 403 {
+     *   "message": "Only drivers may access driver profiles."
+     * }
+     * @response 404 {
+     *   "message": "Driver profile not found."
+     * }
+     */
+    public function showProfile()
+    {
+        $user = Auth::user();
+
+        if ($user->role !== UserRole::Driver) {
+            return response()->json(['message' => 'Only drivers may access driver profiles.'], 403);
+        }
+
+        $driver = $user->driver;
+        if (!$driver) {
+            return response()->json(['message' => 'Driver profile not found.'], 404);
+        }
+
+        $image = $user->profileImage;
+
+        return response()->json([
+            'driver' => $driver,
+            'image' => $image ? [
+                'url' => $image->url,
+                'type' => $image->type,
+            ] : null,
+        ]);
+    }
+
     /**
      * Create a driver profile for the authenticated user.
      *
@@ -24,6 +78,7 @@ class DriverAdminController extends Controller
      * @header Authorization string required Bearer token used to authenticate the request. Example: "Bearer your-token"
      *
      * @bodyParam license_number string required The driver’s license number. Example: "DLX-0071"
+     * @bodyParam image_url string The URL to the driver's profile image. Must be a valid URL. Example: "https://example.com/images/avatar.jpg"
      *
      * @response 201 {
      *   "message": "Driver profile created",
@@ -55,14 +110,25 @@ class DriverAdminController extends Controller
             return response()->json(['message' => 'Driver profile already exists.'], 409);
         }
 
-        $request->validate([
+        $validated = $request->validate([
             'license_number' => 'required|string',
+            'image_url' => 'nullable|url',
         ]);
 
         $driver = Driver::create([
             'user_id' => $user->id,
-            'license_number' => $request->license_number,
+            'license_number' => $validated['license_number'],
         ]);
+
+        // Optionally create a profile image
+        if (!empty($validated['image_url'])) {
+            Image::create([
+                'url' => $validated['image_url'],
+                'type' => 'profile',
+                'user_id' => $user->id,
+                'vehicle_id' => null,
+            ]);
+        }
 
         return response()->json([
             'message' => 'Driver profile created',

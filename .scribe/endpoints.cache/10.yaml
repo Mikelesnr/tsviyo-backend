@@ -54,9 +54,12 @@ endpoints:
       subgroupDescription: ''
       title: 'Request a new ride.'
       description: |-
+        Creates a new ride record for the authenticated rider. The ride starts in a `requested` state
+        and may include pickup/dropoff coordinates, addresses, a fare estimate, and an optional pickup time.
+
         After a successful request, the backend emits a `RideRequested` socket event
         to the `rides.nearby` channel. Frontend drivers subscribed to this channel
-        can receive the ride details in real time.
+        receive the ride details in real time.
       authenticated: true
       custom: []
     headers:
@@ -70,9 +73,9 @@ endpoints:
     bodyParameters:
       pickup_lat:
         name: pickup_lat
-        description: 'Latitude of pickup point.'
+        description: 'Latitude of the pickup location.'
         required: true
-        example: -17.8252
+        example: -17.7978
         type: number
         enumValues: []
         exampleWasSpecified: true
@@ -80,9 +83,9 @@ endpoints:
         custom: []
       pickup_lng:
         name: pickup_lng
-        description: 'Longitude of pickup point.'
+        description: 'Longitude of the pickup location.'
         required: true
-        example: 31.0335
+        example: 31.1259
         type: number
         enumValues: []
         exampleWasSpecified: true
@@ -90,9 +93,9 @@ endpoints:
         custom: []
       dropoff_lat:
         name: dropoff_lat
-        description: 'Latitude of dropoff point.'
+        description: 'Latitude of the dropoff location.'
         required: true
-        example: -17.8291
+        example: -17.8147
         type: number
         enumValues: []
         exampleWasSpecified: true
@@ -100,19 +103,63 @@ endpoints:
         custom: []
       dropoff_lng:
         name: dropoff_lng
-        description: 'Longitude of dropoff point.'
+        description: 'Longitude of the dropoff location.'
         required: true
-        example: 31.0405
+        example: 31.1447
         type: number
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
+      pickup_address:
+        name: pickup_address
+        description: 'optional Human-readable pickup address.'
+        required: false
+        example: '"Food Lovers Market Greendale, Harare"'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
+      dropoff_address:
+        name: dropoff_address
+        description: 'optional Human-readable dropoff address.'
+        required: false
+        example: '"Pick n Pay Kamfinsa, Harare"'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
+      pickup_time:
+        name: pickup_time
+        description: 'optional Scheduled pickup time (YYYY-MM-DD HH:MM:SS).'
+        required: false
+        example: '"2025-07-29 08:15:00"'
+        type: datetime
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
+      fare:
+        name: fare
+        description: 'optional Estimated fare in USD.'
+        required: false
+        example: 6.5
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
     cleanBodyParameters:
-      pickup_lat: -17.8252
-      pickup_lng: 31.0335
-      dropoff_lat: -17.8291
-      dropoff_lng: 31.0405
+      pickup_lat: -17.7978
+      pickup_lng: 31.1259
+      dropoff_lat: -17.8147
+      dropoff_lng: 31.1447
+      pickup_address: '"Food Lovers Market Greendale, Harare"'
+      dropoff_address: '"Pick n Pay Kamfinsa, Harare"'
+      pickup_time: '"2025-07-29 08:15:00"'
+      fare: 6.5
     fileParameters: []
     responses:
       -
@@ -121,7 +168,15 @@ endpoints:
           {
             "data": {
               "id": 1,
-              "status": "requested"
+              "status": "requested",
+              "pickup_lat": -17.7978,
+              "pickup_lng": 31.1259,
+              "dropoff_lat": -17.8147,
+              "dropoff_lng": 31.1447,
+              "pickup_address": "Food Lovers Market Greendale, Harare",
+              "dropoff_address": "Pick n Pay Kamfinsa, Harare",
+              "pickup_time": "2025-07-29 08:15:00",
+              "fare": 6.50
             }
           }
         headers: []

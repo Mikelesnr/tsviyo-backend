@@ -53,8 +53,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: "Create or update the authenticated user's rider profile."
-      description: ''
+      title: 'Create Rider profile.'
+      description: |-
+        This endpoint allows an authenticated user to create their Rider profile.
+        A home address is required. If a profile image URL is provided, it will be saved.
       authenticated: true
       custom: []
     headers:
@@ -70,19 +72,128 @@ endpoints:
         name: home_address
         description: "The rider's home address."
         required: true
-        example: '456 Elm St'
+        example: '120 Maple Street'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
+      image_url:
+        name: image_url
+        description: "The image URL for the rider's profile photo. Must be a valid URL."
+        required: false
+        example: 'https://example.com/image.jpg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
     cleanBodyParameters:
-      home_address: '456 Elm St'
+      home_address: '120 Maple Street'
+      image_url: 'https://example.com/image.jpg'
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "message": "Rider profile created.",
+            "rider": {
+              "id": 1,
+              "home_address": "120 Maple Street",
+              "user_id": 5
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 409
+        content: |-
+          {
+            "message": "Rider profile already exists."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/rider
+    metadata:
+      groupName: Rider
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update Rider profile.'
+      description: |-
+        This endpoint allows an authenticated user to update their existing Rider profile.
+        A new home address can be provided, and the profile image URL can be updated.
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      home_address:
+        name: home_address
+        description: 'The updated home address.'
+        required: true
+        example: '202 Cedar Lane'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      image_url:
+        name: image_url
+        description: "The new image URL for the rider's profile. Must be a valid URL."
+        required: false
+        example: 'https://example.com/updated-image.jpg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
+    cleanBodyParameters:
+      home_address: '202 Cedar Lane'
+      image_url: 'https://example.com/updated-image.jpg'
     fileParameters: []
     responses:
       -
         status: 200
-        content: '{"data": {"user_id": 1, "home_address": "456 Elm St"}}'
+        content: |-
+          {
+            "message": "Rider profile updated.",
+            "rider": {
+              "id": 1,
+              "home_address": "202 Cedar Lane",
+              "user_id": 5
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "message": "No Rider profile found to update."
+          }
         headers: []
         description: ''
         custom: []

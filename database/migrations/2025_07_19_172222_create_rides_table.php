@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('rides', function (Blueprint $table) {
@@ -28,11 +27,17 @@ return new class extends Migration
             $table->decimal('dropoff_lat', 10, 7);
             $table->decimal('dropoff_lng', 10, 7);
 
-            // Ride lifecycle & payment status
+            // Address strings
+            $table->string('pickup_add')->nullable();
+            $table->string('dropoff_add')->nullable();
+
+            // Ride metadata
+            $table->timestamp('pickup_time')->nullable();
+            $table->decimal('fare', 8, 2)->nullable();
+
+            // Ride status
             $table->enum('status', ['requested', 'accepted', 'in_progress', 'completed', 'canceled'])
                 ->default('requested');
-
-            $table->boolean('has_paid')->default(false);
 
             $table->timestamps();
         });
