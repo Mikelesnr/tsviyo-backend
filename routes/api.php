@@ -49,7 +49,8 @@ Route::middleware(['auth:sanctum', 'can:is-rider'])
     ->prefix('rider')
     ->group(function () {
         Route::get('/', [RiderController::class, 'show']);        // GET /rider
-        Route::post('/', [RiderController::class, 'upsert']);     // POST /rider
+        Route::post('/', [RiderController::class, 'create']);     // POST /rider
+        Route::put('/', [RiderController::class, 'update']);     // UPDATE/rider
         Route::delete('/', [RiderController::class, 'destroy']);  // DELETE /rider
         Route::post('/payments', [PaymentController::class, 'store']); // POST /rider/payments
     });

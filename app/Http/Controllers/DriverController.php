@@ -20,8 +20,15 @@ class DriverController extends Controller
      */
     public function myRides(Request $request)
     {
-        $driver = $request->user();
-        $rides = Ride::where('driver_id', $driver->id)->latest()->get();
+        $driver = Driver::where('user_id', Auth::id())->first();
+
+        if (!$driver) {
+            return response()->json(['message' => 'Authenticated user is not a registered driver'], 403);
+        }
+
+        $rides = Ride::where('driver_id', $driver->id)
+            ->latest()
+            ->get();
 
         return RideResource::collection($rides);
     }
@@ -41,8 +48,14 @@ class DriverController extends Controller
             return response()->json(['message' => 'Ride already assigned to a driver'], 409);
         }
 
+        $driver = Driver::where('user_id', Auth::id())->first();
+
+        if (!$driver) {
+            return response()->json(['message' => 'Authenticated user is not a registered driver'], 403);
+        }
+
         $ride->update([
-            'driver_id' => Auth::id(),
+            'driver_id' => $driver->id,
             'status' => RideStatus::ACCEPTED,
         ]);
 
@@ -73,7 +86,9 @@ class DriverController extends Controller
      */
     public function cancelRide(Ride $ride, Request $request)
     {
-        if ($ride->driver_id !== Auth::id()) {
+        $driver = Driver::where('user_id', Auth::id())->first();
+
+        if (!$driver || $ride->driver_id !== $driver->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -93,6 +108,7 @@ class DriverController extends Controller
             'data' => new RideResource($ride),
         ]);
     }
+
 
     /**
      * Toggle the driver's online status.

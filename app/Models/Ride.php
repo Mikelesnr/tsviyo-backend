@@ -16,8 +16,11 @@ class Ride extends Model
         'pickup_lng',
         'dropoff_lat',
         'dropoff_lng',
+        'pickup_add',        // 🆕 address string
+        'dropoff_add',       // 🆕 address string
+        'pickup_time',       // 🆕 datetime
+        'fare',              // 🆕 numeric cost
         'status',
-        'has_paid',
     ];
 
     protected $casts = [

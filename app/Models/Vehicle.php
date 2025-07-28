@@ -20,4 +20,12 @@ class Vehicle extends Model
     {
         return $this->belongsTo(Driver::class);
     }
+
+    /**
+     * Vehicle image.
+     */
+    public function vehicleImage()
+    {
+        return $this->hasOne(Image::class);
+    }
 }

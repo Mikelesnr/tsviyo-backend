@@ -49,8 +49,9 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        // Ensure the vehicle belongs to the authenticated driver
-        if ($vehicle->driver_id !== Auth::id()) {
+        $driver = Driver::where('user_id', Auth::id())->first();
+
+        if (!$driver || $vehicle->driver_id !== $driver->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 

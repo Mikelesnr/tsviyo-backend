@@ -7,6 +7,7 @@ use App\Events\RideRequested;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RideResource;
 use App\Models\Ride;
+use App\Models\Rider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,47 +30,86 @@ class RideController extends Controller
     /**
      * Request a new ride.
      *
+     * Creates a new ride record for the authenticated rider. The ride starts in a `requested` state
+     * and may include pickup/dropoff coordinates, addresses, a fare estimate, and an optional pickup time.
+     *
      * After a successful request, the backend emits a `RideRequested` socket event
      * to the `rides.nearby` channel. Frontend drivers subscribed to this channel
-     * can receive the ride details in real time.
+     * receive the ride details in real time.
      *
      * @group Ride
      * @authenticated
+     *
      * @header Authorization string required Bearer token used to authenticate the request. Example: "Bearer your-token"
-     * @bodyParam pickup_lat float required Latitude of pickup point. Example: -17.8252
-     * @bodyParam pickup_lng float required Longitude of pickup point. Example: 31.0335
-     * @bodyParam dropoff_lat float required Latitude of dropoff point. Example: -17.8291
-     * @bodyParam dropoff_lng float required Longitude of dropoff point. Example: 31.0405
+     *
+     * @bodyParam pickup_lat float required Latitude of the pickup location. Example: -17.7978
+     * @bodyParam pickup_lng float required Longitude of the pickup location. Example: 31.1259
+     * @bodyParam dropoff_lat float required Latitude of the dropoff location. Example: -17.8147
+     * @bodyParam dropoff_lng float required Longitude of the dropoff location. Example: 31.1447
+     * @bodyParam pickup_address string optional Human-readable pickup address. Example: "Food Lovers Market Greendale, Harare"
+     * @bodyParam dropoff_address string optional Human-readable dropoff address. Example: "Pick n Pay Kamfinsa, Harare"
+     * @bodyParam pickup_time datetime optional Scheduled pickup time (YYYY-MM-DD HH:MM:SS). Example: "2025-07-29 08:15:00"
+     * @bodyParam fare float optional Estimated fare in USD. Example: 6.50
+     *
      * @response 201 {
      *   "data": {
      *     "id": 1,
-     *     "status": "requested"
+     *     "status": "requested",
+     *     "pickup_lat": -17.7978,
+     *     "pickup_lng": 31.1259,
+     *     "dropoff_lat": -17.8147,
+     *     "dropoff_lng": 31.1447,
+     *     "pickup_address": "Food Lovers Market Greendale, Harare",
+     *     "dropoff_address": "Pick n Pay Kamfinsa, Harare",
+     *     "pickup_time": "2025-07-29 08:15:00",
+     *     "fare": 6.50
      *   }
      * }
      */
     public function store(Request $request)
     {
+        // Validate incoming request
         $validated = $request->validate([
             'pickup_lat' => 'required|numeric',
             'pickup_lng' => 'required|numeric',
             'dropoff_lat' => 'required|numeric',
             'dropoff_lng' => 'required|numeric',
+            'pickup_address' => 'nullable|string',
+            'dropoff_address' => 'nullable|string',
+            'pickup_time' => 'nullable|date',
+            'fare' => 'nullable|numeric',
         ]);
 
+        // Resolve rider via authenticated user
+        $rider = Rider::where('user_id', Auth::id())->first();
+
+        if (!$rider) {
+            return response()->json([
+                'message' => 'No rider record found for the authenticated user.',
+            ], 404);
+        }
+
+        // Create ride entry
         $ride = Ride::create([
-            'rider_id' => Auth::id(),
-            'driver_id' => '', // Unassigned at creation
+            'rider_id' => $rider->id,
             'pickup_lat' => $validated['pickup_lat'],
             'pickup_lng' => $validated['pickup_lng'],
             'dropoff_lat' => $validated['dropoff_lat'],
             'dropoff_lng' => $validated['dropoff_lng'],
-            'status' => RideStatus::REQUESTED,
-            'has_paid' => false,
+            'pickup_address' => $validated['pickup_address'] ?? null,
+            'dropoff_address' => $validated['dropoff_address'] ?? null,
+            'pickup_time' => $validated['pickup_time'] ?? null,
+            'fare' => $validated['fare'] ?? null,
+            'status' => 'requested',
         ]);
 
-        broadcast(new RideRequested($ride))->toOthers();
+        // Broadcast ride request (optional)
+        RideRequested::dispatch($ride);
 
-        return new RideResource($ride);
+        // Return response
+        return response()->json([
+            'data' => $ride,
+        ], 201);
     }
 
     /**
@@ -83,7 +123,9 @@ class RideController extends Controller
      */
     public function cancel(Ride $ride)
     {
-        if ($ride->rider_id !== Auth::id()) {
+        $rider = Rider::where('user_id', Auth::id())->first();
+
+        if (!$rider || $ride->rider_id !== $rider->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -108,7 +150,9 @@ class RideController extends Controller
      */
     public function lateCancel(Request $request, Ride $ride)
     {
-        if ($ride->rider_id !== Auth::id()) {
+        $rider = Rider::where('user_id', Auth::id())->first();
+
+        if (!$rider || $ride->rider_id !== $rider->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 

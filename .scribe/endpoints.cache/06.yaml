@@ -35,8 +35,19 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         custom: []
+      image_url:
+        name: image_url
+        description: "The URL to the driver's profile image. Must be a valid URL."
+        required: false
+        example: '"https://example.com/images/avatar.jpg"'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
     cleanBodyParameters:
       license_number: '"DLX-0071"'
+      image_url: '"https://example.com/images/avatar.jpg"'
     fileParameters: []
     responses:
       -

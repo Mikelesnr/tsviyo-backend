@@ -50,4 +50,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Driver::class);
     }
+
+    /**
+     * Profile image.
+     */
+    public function profileImage()
+    {
+        return $this->hasOne(Image::class);
+    }
 }
