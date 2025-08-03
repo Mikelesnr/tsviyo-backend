@@ -156,3 +156,20 @@ Route::get('/debug', function () {
     ]);
     return response()->json(['status' => 'debug info logged']);
 });
+
+Route::get('/test-pusher', function () {
+    event(new \App\Events\RideRequested([
+        'rider_id' => 1,
+        'pickup_lat' => -17.7978,
+        'pickup_lng' => 31.1259,
+        'dropoff_lat' => -17.8147,
+        'dropoff_lng' => 31.1447,
+        'pickup_time' => '2022-09-20 10:27:21.240752',
+        'fare' => 6.5,
+        'status' => 'requested',
+        'updated_at' => '2025-08-02T22:46:21.000000Z',
+        'created_at' => '2025-08-02T22:46:21.000000Z',
+        'id' => 59
+    ]));
+    return 'Dispatched!';
+});
