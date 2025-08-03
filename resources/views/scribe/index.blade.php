@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://127.0.0.1:8000";
+        var tryItOutBaseUrl = "https://tsviyo-backend.onrender.com";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -297,7 +297,7 @@ Requires a valid Sanctum token in the Authorization header.</a>
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 2, 2025</li>
+        <li>Last updated: August 3, 2025</li>
     </ul>
 </div>
 
@@ -306,7 +306,7 @@ Requires a valid Sanctum token in the Authorization header.</a>
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://127.0.0.1:8000</code>
+    <strong>Base URL</strong>: <code>https://tsviyo-backend.onrender.com</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -336,7 +336,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/driver/profile" \
+    "https://tsviyo-backend.onrender.com/api/driver/profile" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -349,7 +349,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/profile"
+    "https://tsviyo-backend.onrender.com/api/driver/profile"
 );
 
 const headers = {
@@ -524,7 +524,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/driver/profile/1" \
+    "https://tsviyo-backend.onrender.com/api/driver/profile/1" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -539,7 +539,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/profile/1"
+    "https://tsviyo-backend.onrender.com/api/driver/profile/1"
 );
 
 const headers = {
@@ -776,7 +776,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/admin/users" \
+    --get "https://tsviyo-backend.onrender.com/api/admin/users" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -784,7 +784,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/admin/users"
+    "https://tsviyo-backend.onrender.com/api/admin/users"
 );
 
 const headers = {
@@ -937,7 +937,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/admin/vehicles" \
+    --get "https://tsviyo-backend.onrender.com/api/admin/vehicles" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -945,7 +945,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/admin/vehicles"
+    "https://tsviyo-backend.onrender.com/api/admin/vehicles"
 );
 
 const headers = {
@@ -1098,7 +1098,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/admin/drivers/16/activate" \
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/activate" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1106,7 +1106,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/admin/drivers/16/activate"
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/activate"
 );
 
 const headers = {
@@ -1238,7 +1238,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/admin/drivers/16/deactivate" \
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/deactivate" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1246,7 +1246,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/admin/drivers/16/deactivate"
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/deactivate"
 );
 
 const headers = {
@@ -1378,7 +1378,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/admin/drivers/16/suspend" \
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/suspend" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1386,7 +1386,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/admin/drivers/16/suspend"
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/suspend"
 );
 
 const headers = {
@@ -1518,7 +1518,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/admin/drivers/16/unsuspend" \
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/unsuspend" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1526,7 +1526,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/admin/drivers/16/unsuspend"
+    "https://tsviyo-backend.onrender.com/api/admin/drivers/16/unsuspend"
 );
 
 const headers = {
@@ -1658,7 +1658,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/admin/users/16" \
+    "https://tsviyo-backend.onrender.com/api/admin/users/16" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1666,7 +1666,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/admin/users/16"
+    "https://tsviyo-backend.onrender.com/api/admin/users/16"
 );
 
 const headers = {
@@ -1802,7 +1802,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/auth/register" \
+    "https://tsviyo-backend.onrender.com/api/auth/register" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -1819,7 +1819,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/register"
+    "https://tsviyo-backend.onrender.com/api/auth/register"
 );
 
 const headers = {
@@ -2027,7 +2027,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/auth/login" \
+    "https://tsviyo-backend.onrender.com/api/auth/login" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -2040,7 +2040,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/login"
+    "https://tsviyo-backend.onrender.com/api/auth/login"
 );
 
 const headers = {
@@ -2197,7 +2197,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/auth/logout" \
+    "https://tsviyo-backend.onrender.com/api/auth/logout" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2205,7 +2205,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/logout"
+    "https://tsviyo-backend.onrender.com/api/auth/logout"
 );
 
 const headers = {
@@ -2334,7 +2334,7 @@ Useful for inspecting request headers and host info.</h2>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/debug" \
+    --get "https://tsviyo-backend.onrender.com/api/debug" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2342,7 +2342,7 @@ Useful for inspecting request headers and host info.</h2>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/debug"
+    "https://tsviyo-backend.onrender.com/api/debug"
 );
 
 const headers = {
@@ -2469,7 +2469,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/driver/toggle-status" \
+    "https://tsviyo-backend.onrender.com/api/driver/toggle-status" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2477,7 +2477,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/toggle-status"
+    "https://tsviyo-backend.onrender.com/api/driver/toggle-status"
 );
 
 const headers = {
@@ -2612,7 +2612,7 @@ Returns total earnings for the authenticated driver based on completed payments 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/driver/payments/summary" \
+    --get "https://tsviyo-backend.onrender.com/api/driver/payments/summary" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2620,7 +2620,7 @@ Returns total earnings for the authenticated driver based on completed payments 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/payments/summary"
+    "https://tsviyo-backend.onrender.com/api/driver/payments/summary"
 );
 
 const headers = {
@@ -2759,7 +2759,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/driver/rides" \
+    --get "https://tsviyo-backend.onrender.com/api/driver/rides" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2767,7 +2767,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/rides"
+    "https://tsviyo-backend.onrender.com/api/driver/rides"
 );
 
 const headers = {
@@ -2897,7 +2897,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/driver/rides/1/accept" \
+    "https://tsviyo-backend.onrender.com/api/driver/rides/1/accept" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2905,7 +2905,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/rides/1/accept"
+    "https://tsviyo-backend.onrender.com/api/driver/rides/1/accept"
 );
 
 const headers = {
@@ -3053,7 +3053,7 @@ such as for vehicle breakdowns or unresponsive passengers.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/driver/rides/1/cancel" \
+    "https://tsviyo-backend.onrender.com/api/driver/rides/1/cancel" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -3065,7 +3065,7 @@ such as for vehicle breakdowns or unresponsive passengers.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/rides/1/cancel"
+    "https://tsviyo-backend.onrender.com/api/driver/rides/1/cancel"
 );
 
 const headers = {
@@ -3255,7 +3255,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/auth/email/verify/16/architecto" \
+    --get "https://tsviyo-backend.onrender.com/api/auth/email/verify/16/architecto" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3263,7 +3263,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/email/verify/16/architecto"
+    "https://tsviyo-backend.onrender.com/api/auth/email/verify/16/architecto"
 );
 
 const headers = {
@@ -3423,7 +3423,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/auth/email/verify/resend" \
+    "https://tsviyo-backend.onrender.com/api/auth/email/verify/resend" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3431,7 +3431,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/email/verify/resend"
+    "https://tsviyo-backend.onrender.com/api/auth/email/verify/resend"
 );
 
 const headers = {
@@ -3567,7 +3567,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/auth/me" \
+    --get "https://tsviyo-backend.onrender.com/api/auth/me" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3575,7 +3575,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/me"
+    "https://tsviyo-backend.onrender.com/api/auth/me"
 );
 
 const headers = {
@@ -3700,7 +3700,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/ratings" \
+    "https://tsviyo-backend.onrender.com/api/ratings" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer {your_token_here}\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -3714,7 +3714,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/ratings"
+    "https://tsviyo-backend.onrender.com/api/ratings"
 );
 
 const headers = {
@@ -3885,7 +3885,7 @@ Requires a Bearer token for authentication.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/my-ratings" \
+    --get "https://tsviyo-backend.onrender.com/api/my-ratings" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-access-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3893,7 +3893,7 @@ Requires a Bearer token for authentication.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/my-ratings"
+    "https://tsviyo-backend.onrender.com/api/my-ratings"
 );
 
 const headers = {
@@ -4024,7 +4024,7 @@ Requires a Bearer token for authentication.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/my-average-rating" \
+    --get "https://tsviyo-backend.onrender.com/api/my-average-rating" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-access-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4032,7 +4032,7 @@ Requires a Bearer token for authentication.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/my-average-rating"
+    "https://tsviyo-backend.onrender.com/api/my-average-rating"
 );
 
 const headers = {
@@ -4155,7 +4155,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/test-pusher" \
+    --get "https://tsviyo-backend.onrender.com/api/test-pusher" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4163,7 +4163,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/test-pusher"
+    "https://tsviyo-backend.onrender.com/api/test-pusher"
 );
 
 const headers = {
@@ -4295,7 +4295,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/auth/forgot-password" \
+    "https://tsviyo-backend.onrender.com/api/auth/forgot-password" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4307,7 +4307,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/forgot-password"
+    "https://tsviyo-backend.onrender.com/api/auth/forgot-password"
 );
 
 const headers = {
@@ -4447,7 +4447,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/auth/reset-password" \
+    "https://tsviyo-backend.onrender.com/api/auth/reset-password" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4462,7 +4462,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/auth/reset-password"
+    "https://tsviyo-backend.onrender.com/api/auth/reset-password"
 );
 
 const headers = {
@@ -4642,7 +4642,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/rides" \
+    --get "https://tsviyo-backend.onrender.com/api/rides" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4650,7 +4650,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rides"
+    "https://tsviyo-backend.onrender.com/api/rides"
 );
 
 const headers = {
@@ -4783,7 +4783,7 @@ receive the ride details in real time.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/rides" \
+    "https://tsviyo-backend.onrender.com/api/rides" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4802,7 +4802,7 @@ receive the ride details in real time.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rides"
+    "https://tsviyo-backend.onrender.com/api/rides"
 );
 
 const headers = {
@@ -5037,7 +5037,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/rides/1/cancel" \
+    "https://tsviyo-backend.onrender.com/api/rides/1/cancel" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5045,7 +5045,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rides/1/cancel"
+    "https://tsviyo-backend.onrender.com/api/rides/1/cancel"
 );
 
 const headers = {
@@ -5192,7 +5192,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/rides/1/late-cancel" \
+    "https://tsviyo-backend.onrender.com/api/rides/1/late-cancel" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -5204,7 +5204,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rides/1/late-cancel"
+    "https://tsviyo-backend.onrender.com/api/rides/1/late-cancel"
 );
 
 const headers = {
@@ -5374,7 +5374,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/rider" \
+    --get "https://tsviyo-backend.onrender.com/api/rider" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5382,7 +5382,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rider"
+    "https://tsviyo-backend.onrender.com/api/rider"
 );
 
 const headers = {
@@ -5509,7 +5509,7 @@ A home address is required. If a profile image URL is provided, it will be saved
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/rider" \
+    "https://tsviyo-backend.onrender.com/api/rider" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -5522,7 +5522,7 @@ A home address is required. If a profile image URL is provided, it will be saved
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rider"
+    "https://tsviyo-backend.onrender.com/api/rider"
 );
 
 const headers = {
@@ -5689,7 +5689,7 @@ A new home address can be provided, and the profile image URL can be updated.</p
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/rider" \
+    "https://tsviyo-backend.onrender.com/api/rider" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -5702,7 +5702,7 @@ A new home address can be provided, and the profile image URL can be updated.</p
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rider"
+    "https://tsviyo-backend.onrender.com/api/rider"
 );
 
 const headers = {
@@ -5868,7 +5868,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/rider" \
+    "https://tsviyo-backend.onrender.com/api/rider" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5876,7 +5876,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rider"
+    "https://tsviyo-backend.onrender.com/api/rider"
 );
 
 const headers = {
@@ -5999,7 +5999,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/rider/payments" \
+    "https://tsviyo-backend.onrender.com/api/rider/payments" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6013,7 +6013,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/rider/payments"
+    "https://tsviyo-backend.onrender.com/api/rider/payments"
 );
 
 const headers = {
@@ -6191,7 +6191,7 @@ Requires a valid Sanctum token in the Authorization header.</h2>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/user" \
+    --get "https://tsviyo-backend.onrender.com/api/user" \
     --header "Authorization: string required Bearer token. Example: Bearer eyJ0eXAiOiJKV1QiLCJhbGci..." \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6199,7 +6199,7 @@ Requires a valid Sanctum token in the Authorization header.</h2>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/user"
+    "https://tsviyo-backend.onrender.com/api/user"
 );
 
 const headers = {
@@ -6328,7 +6328,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/driver/vehicles?page=1" \
+    --get "https://tsviyo-backend.onrender.com/api/driver/vehicles?page=1" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6336,7 +6336,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/vehicles"
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles"
 );
 
 const params = {
@@ -6489,7 +6489,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/driver/vehicles" \
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6503,7 +6503,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/vehicles"
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles"
 );
 
 const headers = {
@@ -6673,7 +6673,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/driver/vehicles/1" \
+    --get "https://tsviyo-backend.onrender.com/api/driver/vehicles/1" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6681,7 +6681,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/vehicles/1"
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles/1"
 );
 
 const headers = {
@@ -6832,7 +6832,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://127.0.0.1:8000/api/driver/vehicles/1" \
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles/1" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6846,7 +6846,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/vehicles/1"
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles/1"
 );
 
 const headers = {
@@ -7039,7 +7039,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/driver/vehicles/1" \
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles/1" \
     --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -7047,7 +7047,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/driver/vehicles/1"
+    "https://tsviyo-backend.onrender.com/api/driver/vehicles/1"
 );
 
 const headers = {
