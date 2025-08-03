@@ -86,9 +86,6 @@ class DriverAdminController extends Controller
      *     "id": 1,
      *     "user_id": 25,
      *     "license_number": "DLX-0071",
-     *     "is_activated": false,
-     *     "is_online": false,
-     *     "is_suspended": false
      *   }
      * }
      * @response 403 {
@@ -130,9 +127,15 @@ class DriverAdminController extends Controller
             ]);
         }
 
+        $image = $user->profileImage;
+
         return response()->json([
             'message' => 'Driver profile created',
             'driver' => $driver,
+            'image' => $image ? [
+                'url' => $image->url,
+                'type' => $image->type,
+            ] : null,
         ], 201);
     }
 
@@ -156,9 +159,7 @@ class DriverAdminController extends Controller
      *     "id": 1,
      *     "user_id": 25,
      *     "license_number": "DLX-0099",
-     *     "is_activated": true,
      *     "is_online": false,
-     *     "is_suspended": false
      *   }
      * }
      * @response 404 {

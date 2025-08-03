@@ -59,8 +59,8 @@ class RideController extends Controller
      *     "pickup_lng": 31.1259,
      *     "dropoff_lat": -17.8147,
      *     "dropoff_lng": 31.1447,
-     *     "pickup_address": "Food Lovers Market Greendale, Harare",
-     *     "dropoff_address": "Pick n Pay Kamfinsa, Harare",
+     *     "pickup_add": "Food Lovers Market Greendale, Harare",
+     *     "dropoff_add": "Pick n Pay Kamfinsa, Harare",
      *     "pickup_time": "2025-07-29 08:15:00",
      *     "fare": 6.50
      *   }
@@ -96,15 +96,16 @@ class RideController extends Controller
             'pickup_lng' => $validated['pickup_lng'],
             'dropoff_lat' => $validated['dropoff_lat'],
             'dropoff_lng' => $validated['dropoff_lng'],
-            'pickup_address' => $validated['pickup_address'] ?? null,
-            'dropoff_address' => $validated['dropoff_address'] ?? null,
+            'pickup_add' => $validated['pickup_address'] ?? null,
+            'dropoff_add' => $validated['dropoff_address'] ?? null,
             'pickup_time' => $validated['pickup_time'] ?? null,
             'fare' => $validated['fare'] ?? null,
             'status' => 'requested',
         ]);
 
         // Broadcast ride request (optional)
-        RideRequested::dispatch($ride);
+        broadcast(new RideRequested($ride));
+
 
         // Return response
         return response()->json([

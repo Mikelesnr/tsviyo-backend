@@ -59,9 +59,6 @@ endpoints:
               "id": 1,
               "user_id": 25,
               "license_number": "DLX-0071",
-              "is_activated": false,
-              "is_online": false,
-              "is_suspended": false
             }
           }
         headers: []
@@ -183,9 +180,7 @@ endpoints:
               "id": 1,
               "user_id": 25,
               "license_number": "DLX-0099",
-              "is_activated": true,
               "is_online": false,
-              "is_suspended": false
             }
           }
         headers: []

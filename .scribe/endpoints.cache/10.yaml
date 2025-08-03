@@ -173,8 +173,8 @@ endpoints:
               "pickup_lng": 31.1259,
               "dropoff_lat": -17.8147,
               "dropoff_lng": 31.1447,
-              "pickup_address": "Food Lovers Market Greendale, Harare",
-              "dropoff_address": "Pick n Pay Kamfinsa, Harare",
+              "pickup_add": "Food Lovers Market Greendale, Harare",
+              "dropoff_add": "Pick n Pay Kamfinsa, Harare",
               "pickup_time": "2025-07-29 08:15:00",
               "fare": 6.50
             }
