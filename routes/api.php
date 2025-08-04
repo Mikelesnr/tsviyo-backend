@@ -88,6 +88,9 @@ Route::middleware(['auth:sanctum', 'can:is-driver'])
         Route::post('/toggle-status', [DriverController::class, 'toggleOnlineStatus']); // POST /driver/toggle-status
         Route::get('/payments/summary', [PaymentController::class, 'driverMonthlySummary']); // GET /driver/payments/summary
 
+        // Driver profile
+        Route::get('/profile', [DriverController::class, 'myProfile']); // GET /driver/profile
+
         // Vehicle routes
         Route::get('/vehicles', [VehicleController::class, 'index']);              // GET /driver/vehicles - list vehicles
         Route::post('/vehicles', [VehicleController::class, 'store']);             // POST /driver/vehicles - create vehicle

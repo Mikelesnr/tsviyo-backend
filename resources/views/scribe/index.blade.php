@@ -150,6 +150,16 @@ Returns total earnings for the authenticated driver based on completed payments 
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-driver-profile" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="driver-profile">
+                    <a href="#driver-profile">Driver Profile</a>
+                </li>
+                                    <ul id="tocify-subheader-driver-profile" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="driver-profile-GETapi-driver-profile">
+                                <a href="#driver-profile-GETapi-driver-profile">Retrieve authenticated driver profile including vehicle.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-driver-ride" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="driver-ride">
                     <a href="#driver-ride">Driver Ride</a>
@@ -281,7 +291,7 @@ Requires a valid Sanctum token in the Authorization header.</a>
                                 <a href="#vehicle-GETapi-driver-vehicles--vehicle_id-">Show a specific vehicle's details.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="vehicle-PATCHapi-driver-vehicles--vehicle-">
-                                <a href="#vehicle-PATCHapi-driver-vehicles--vehicle-">Update a specific vehicle.</a>
+                                <a href="#vehicle-PATCHapi-driver-vehicles--vehicle-">Update a specific vehicle and its image.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="vehicle-DELETEapi-driver-vehicles--vehicle-">
                                 <a href="#vehicle-DELETEapi-driver-vehicles--vehicle-">Delete a vehicle and deactivate driver if no vehicles remain.</a>
@@ -297,7 +307,7 @@ Requires a valid Sanctum token in the Authorization header.</a>
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 3, 2025</li>
+        <li>Last updated: August 4, 2025</li>
     </ul>
 </div>
 
@@ -2734,6 +2744,163 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Accept"                data-endpoint="GETapi-driver-payments-summary"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                <h1 id="driver-profile">Driver Profile</h1>
+
+    
+
+                                <h2 id="driver-profile-GETapi-driver-profile">Retrieve authenticated driver profile including vehicle.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Returns driver details and their primary vehicle if one exists.
+If no specific vehicle is attached, returns the first associated vehicle.</p>
+
+<span id="example-requests-GETapi-driver-profile">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://tsviyo-backend.onrender.com/api/driver/profile" \
+    --header "Authorization: string required Bearer token used to authenticate the request. Example: \&amp;quot;Bearer your-token\&amp;quot;" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://tsviyo-backend.onrender.com/api/driver/profile"
+);
+
+const headers = {
+    "Authorization": "string required Bearer token used to authenticate the request. Example: &amp;quot;Bearer your-token&amp;quot;",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-driver-profile">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;id&quot;: 3,
+    &quot;user&quot;: {
+        &quot;id&quot;: 9,
+        &quot;name&quot;: &quot;John Doe&quot;,
+        &quot;email&quot;: &quot;j.doe@example.com&quot;
+    },
+    &quot;license_number&quot;: &quot;DL123456&quot;,
+    &quot;vehicle&quot;: {
+        &quot;id&quot;: 7,
+        &quot;make&quot;: &quot;Toyota&quot;,
+        &quot;model&quot;: &quot;Corolla&quot;,
+        &quot;plate_number&quot;: &quot;XYZ 123&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Authenticated user is not a registered driver&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-driver-profile" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-driver-profile"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-driver-profile"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-driver-profile" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-driver-profile">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-driver-profile" data-method="GET"
+      data-path="api/driver/profile"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-driver-profile', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-driver-profile"
+                    onclick="tryItOut('GETapi-driver-profile');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-driver-profile"
+                    onclick="cancelTryOut('GETapi-driver-profile');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-driver-profile"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/driver/profile</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-driver-profile"
+               value="string required Bearer token used to authenticate the request. Example: "Bearer your-token""
+               data-component="header">
+    <br>
+<p>Example: <code>string required Bearer token used to authenticate the request. Example: "Bearer your-token"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-driver-profile"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-driver-profile"
                value="application/json"
                data-component="header">
     <br>
@@ -6481,7 +6648,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>This method creates a vehicle tied to the driver ID (not the user ID).
+If an image URL is provided, it attaches the image with type restricted to 'vehicle'.</p>
 
 <span id="example-requests-POSTapi-driver-vehicles">
 <blockquote>Example request:</blockquote>
@@ -6496,7 +6664,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"make\": \"\\\"Toyota\\\"\",
     \"model\": \"\\\"Vitz\\\"\",
-    \"plate_number\": \"\\\"XYZ123\\\"\"
+    \"plate_number\": \"\\\"XYZ123\\\"\",
+    \"image_url\": \"\\\"https:\\/\\/imgur.com\\/car.png\\\"\"
 }"
 </code></pre></div>
 
@@ -6515,7 +6684,8 @@ const headers = {
 let body = {
     "make": "\"Toyota\"",
     "model": "\"Vitz\"",
-    "plate_number": "\"XYZ123\""
+    "plate_number": "\"XYZ123\"",
+    "image_url": "\"https:\/\/imgur.com\/car.png\""
 };
 
 fetch(url, {
@@ -6538,8 +6708,21 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;make&quot;: &quot;Toyota&quot;,
         &quot;model&quot;: &quot;Vitz&quot;,
-        &quot;plate_number&quot;: &quot;XYZ123&quot;
+        &quot;plate_number&quot;: &quot;XYZ123&quot;,
+        &quot;image&quot;: {
+            &quot;url&quot;: &quot;https://imgur.com/car.png&quot;,
+            &quot;type&quot;: &quot;vehicle&quot;
+        }
     }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;The image type is invalid&quot;
 }</code>
  </pre>
     </span>
@@ -6656,6 +6839,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>The license plate number. Example: <code>"XYZ123"</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>image_url</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="image_url"                data-endpoint="POSTapi-driver-vehicles"
+               value=""https://imgur.com/car.png""
+               data-component="body">
+    <br>
+<p>optional URL of the vehicle's image. Example: <code>"https://imgur.com/car.png"</code></p>
         </div>
         </form>
 
@@ -6818,13 +7012,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-                    <h2 id="vehicle-PATCHapi-driver-vehicles--vehicle-">Update a specific vehicle.</h2>
+                    <h2 id="vehicle-PATCHapi-driver-vehicles--vehicle-">Update a specific vehicle and its image.</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>This endpoint updates a vehicle's details and, if a new image URL is provided,
+updates the vehicle's image (matched via driver_id). Only the image's URL is editable.</p>
 
 <span id="example-requests-PATCHapi-driver-vehicles--vehicle-">
 <blockquote>Example request:</blockquote>
@@ -6839,7 +7034,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"make\": \"\\\"Nissan\\\"\",
     \"model\": \"\\\"Sunny\\\"\",
-    \"plate_number\": \"\\\"XYZ999\\\"\"
+    \"plate_number\": \"\\\"XYZ999\\\"\",
+    \"image_url\": \"\\\"https:\\/\\/imgur.com\\/car_updated.png\\\"\"
 }"
 </code></pre></div>
 
@@ -6858,7 +7054,8 @@ const headers = {
 let body = {
     "make": "\"Nissan\"",
     "model": "\"Sunny\"",
-    "plate_number": "\"XYZ999\""
+    "plate_number": "\"XYZ999\"",
+    "image_url": "\"https:\/\/imgur.com\/car_updated.png\""
 };
 
 fetch(url, {
@@ -6881,7 +7078,13 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;make&quot;: &quot;Nissan&quot;,
         &quot;model&quot;: &quot;Sunny&quot;,
-        &quot;plate_number&quot;: &quot;XYZ999&quot;
+        &quot;plate_number&quot;: &quot;XYZ999&quot;,
+        &quot;image&quot;: {
+            &quot;id&quot;: 12,
+            &quot;vehicle_id&quot;: 1,
+            &quot;url&quot;: &quot;https://imgur.com/car_updated.png&quot;,
+            &quot;type&quot;: &quot;vehicle&quot;
+        }
     }
 }</code>
  </pre>
@@ -7022,6 +7225,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>The license plate number. Example: <code>"XYZ999"</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>image_url</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="image_url"                data-endpoint="PATCHapi-driver-vehicles--vehicle-"
+               value=""https://imgur.com/car_updated.png""
+               data-component="body">
+    <br>
+<p>optional Updated image URL for the vehicle. Example: <code>"https://imgur.com/car_updated.png"</code></p>
         </div>
         </form>
 

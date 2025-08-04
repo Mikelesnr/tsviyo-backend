@@ -28,6 +28,18 @@ class DriverResource extends JsonResource
             'license_number' => $this->license_number ?? null,
             'contact_number' => $this->contact_number ?? null,
 
+            // Vehicle data
+            'vehicle' => $this->vehicle
+                ?? optional($this->vehicles->first(), function ($vehicle) {
+                    return [
+                        'id' => $vehicle->id,
+                        'make' => $vehicle->make,
+                        'model' => $vehicle->model,
+                        'plate_number' => $vehicle->plate_number,
+                        'image_url' => optional($vehicle->vehicleImage)->url,
+                    ];
+                }),
+
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
