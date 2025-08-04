@@ -1,16 +1,16 @@
-name: 'Admin Management'
+name: Ride
 description: ''
 endpoints:
   -
     httpMethods:
       - GET
-    uri: api/admin/users
+    uri: api/rides
     metadata:
-      groupName: 'Admin Management'
+      groupName: Ride
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a paginated list of users.'
+      title: 'List rides requested by the authenticated rider.'
       description: ''
       authenticated: true
       custom: []
@@ -27,45 +27,12 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '[{"id":1,"pickup_lat":-17.8252,"pickup_lng":31.0335,"dropoff_lat":-17.8291,"dropoff_lng":31.0405}]'
+        headers: []
+        description: ''
         custom: []
-    responseFields:
-      id:
-        name: id
-        description: 'The ID of the user'
-        required: false
-        example: null
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-      name:
-        name: name
-        description: "The user's name"
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-      email:
-        name: email
-        description: "The user's email"
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
+    responseFields: []
     auth:
       - headers
       - Authorization
@@ -76,15 +43,21 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - GET
-    uri: api/admin/vehicles
+      - POST
+    uri: api/rides
     metadata:
-      groupName: 'Admin Management'
+      groupName: Ride
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a paginated list of vehicles.'
-      description: ''
+      title: 'Request a new ride.'
+      description: |-
+        Creates a new ride record for the authenticated rider. The ride starts in a `requested` state
+        and may include pickup/dropoff coordinates, addresses, a fare estimate, and an optional pickup time.
+
+        After a successful request, the backend emits a `RideRequested` socket event
+        to the `rides.nearby` channel. Frontend drivers subscribed to this channel
+        receive the ride details in real time.
       authenticated: true
       custom: []
     headers:
@@ -95,97 +68,115 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields:
-      id:
-        name: id
-        description: 'The ID of the vehicle'
-        required: false
-        example: null
-        type: integer
+    bodyParameters:
+      pickup_lat:
+        name: pickup_lat
+        description: 'Latitude of the pickup location.'
+        required: true
+        example: -17.7978
+        type: number
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
-      model:
-        name: model
-        description: 'Vehicle model name'
+      pickup_lng:
+        name: pickup_lng
+        description: 'Longitude of the pickup location.'
+        required: true
+        example: 31.1259
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      dropoff_lat:
+        name: dropoff_lat
+        description: 'Latitude of the dropoff location.'
+        required: true
+        example: -17.8147
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      dropoff_lng:
+        name: dropoff_lng
+        description: 'Longitude of the dropoff location.'
+        required: true
+        example: 31.1447
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      pickup_address:
+        name: pickup_address
+        description: 'optional Human-readable pickup address.'
         required: false
-        example: null
+        example: '"Food Lovers Market Greendale, Harare"'
         type: string
         enumValues: []
-        exampleWasSpecified: false
-        nullable: false
+        exampleWasSpecified: true
+        nullable: true
         custom: []
-      driver_id:
-        name: driver_id
-        description: "Linked driver's ID"
+      dropoff_address:
+        name: dropoff_address
+        description: 'optional Human-readable dropoff address.'
         required: false
-        example: null
-        type: integer
+        example: '"Pick n Pay Kamfinsa, Harare"'
+        type: string
         enumValues: []
-        exampleWasSpecified: false
-        nullable: false
+        exampleWasSpecified: true
+        nullable: true
         custom: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PATCH
-    uri: 'api/admin/drivers/{driver}/activate'
-    metadata:
-      groupName: 'Admin Management'
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Activate a driver account.'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      driver:
-        name: driver
-        description: "The driver's ID to activate."
-        required: true
-        example: 16
-        type: integer
+      pickup_time:
+        name: pickup_time
+        description: 'optional Scheduled pickup time (YYYY-MM-DD HH:MM:SS).'
+        required: false
+        example: '"2025-07-29 08:15:00"'
+        type: datetime
         enumValues: []
-        exampleWasSpecified: false
-        nullable: false
+        exampleWasSpecified: true
+        nullable: true
         custom: []
-    cleanUrlParameters:
-      driver: 16
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+      fare:
+        name: fare
+        description: 'optional Estimated fare in USD.'
+        required: false
+        example: 6.5
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        custom: []
+    cleanBodyParameters:
+      pickup_lat: -17.7978
+      pickup_lng: 31.1259
+      dropoff_lat: -17.8147
+      dropoff_lng: 31.1447
+      pickup_address: '"Food Lovers Market Greendale, Harare"'
+      dropoff_address: '"Pick n Pay Kamfinsa, Harare"'
+      pickup_time: '"2025-07-29 08:15:00"'
+      fare: 6.5
     fileParameters: []
     responses:
       -
-        status: 204
-        content: 'Driver successfully activated'
+        status: 201
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "status": "requested",
+              "pickup_lat": -17.7978,
+              "pickup_lng": 31.1259,
+              "dropoff_lat": -17.8147,
+              "dropoff_lng": 31.1447,
+              "pickup_add": "Food Lovers Market Greendale, Harare",
+              "dropoff_add": "Pick n Pay Kamfinsa, Harare",
+              "pickup_time": "2025-07-29 08:15:00",
+              "fare": 6.50
+            }
+          }
         headers: []
         description: ''
         custom: []
@@ -201,13 +192,13 @@ endpoints:
   -
     httpMethods:
       - PATCH
-    uri: 'api/admin/drivers/{driver}/deactivate'
+    uri: 'api/rides/{ride_id}/cancel'
     metadata:
-      groupName: 'Admin Management'
+      groupName: Ride
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Deactivate a driver account.'
+      title: "Cancel a ride before it's accepted by a driver."
       description: ''
       authenticated: true
       custom: []
@@ -216,18 +207,18 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      driver:
-        name: driver
-        description: "The driver's ID to deactivate."
+      ride_id:
+        name: ride_id
+        description: 'The ID of the ride.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanUrlParameters:
-      driver: 16
+      ride_id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -235,8 +226,14 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 204
-        content: 'Driver successfully deactivated'
+        status: 200
+        content: '{"data":{"id":1,"status":"canceled"}}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 403
+        content: '{"message":"Unauthorized or invalid cancellation stage"}'
         headers: []
         description: ''
         custom: []
@@ -252,13 +249,13 @@ endpoints:
   -
     httpMethods:
       - PATCH
-    uri: 'api/admin/drivers/{driver}/suspend'
+    uri: 'api/rides/{ride_id}/late-cancel'
     metadata:
-      groupName: 'Admin Management'
+      groupName: Ride
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Suspend a driver from using the service.'
+      title: 'Cancel a ride after it has been accepted — with reason.'
       description: ''
       authenticated: true
       custom: []
@@ -267,129 +264,44 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      driver:
-        name: driver
-        description: "The driver's ID to suspend."
+      ride_id:
+        name: ride_id
+        description: 'The ID of the ride.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanUrlParameters:
-      driver: 16
+      ride_id: 1
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      reason:
+        name: reason
+        description: 'Explanation for late cancellation.'
+        required: true
+        example: '"Emergency came up"'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      reason: '"Emergency came up"'
     fileParameters: []
     responses:
       -
-        status: 204
-        content: 'Driver successfully suspended'
+        status: 200
+        content: '{"message":"Ride cancelled after acceptance","data":{"id":1,"status":"canceled"}}'
         headers: []
         description: ''
         custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PATCH
-    uri: 'api/admin/drivers/{driver}/unsuspend'
-    metadata:
-      groupName: 'Admin Management'
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Unsuspend a previously suspended driver.'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      driver:
-        name: driver
-        description: "The driver's ID to unsuspend."
-        required: true
-        example: 16
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      driver: 16
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
       -
-        status: 204
-        content: 'Driver successfully unsuspended'
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/admin/users/{user}'
-    metadata:
-      groupName: 'Admin Management'
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Delete a user account permanently.'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'string required Bearer token used to authenticate the request. Example: "Bearer your-token"'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      user:
-        name: user
-        description: "The user's ID to delete."
-        required: true
-        example: 16
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      user: 16
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 204
-        content: 'User successfully deleted'
+        status: 403
+        content: '{"message":"Unauthorized or invalid cancellation stage"}'
         headers: []
         description: ''
         custom: []

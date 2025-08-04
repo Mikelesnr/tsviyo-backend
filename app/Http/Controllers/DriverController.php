@@ -5,12 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\Ride;
 use App\Models\Driver;
 use App\Http\Resources\RideResource;
+use App\Http\Resources\DriverResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\RideStatus;
 
 class DriverController extends Controller
 {
+
+    /**
+     * Retrieve authenticated driver profile including vehicle.
+     *
+     * Returns driver details and their primary vehicle if one exists.
+     * If no specific vehicle is attached, returns the first associated vehicle.
+     *
+     * @group Driver Profile
+     * @authenticated
+     * @header Authorization string required Bearer token used to authenticate the request. Example: "Bearer your-token"
+     * @response 200 {
+     *   "id": 3,
+     *   "user": { "id": 9, "name": "John Doe", "email": "j.doe@example.com" },
+     *   "license_number": "DL123456",
+     *   "vehicle": {
+     *     "id": 7,
+     *     "make": "Toyota",
+     *     "model": "Corolla",
+     *     "plate_number": "XYZ 123"
+     *   }
+     * }
+     * @response 403 {"message": "Authenticated user is not a registered driver"}
+     */
+    public function myProfile(Request $request)
+    {
+        $driver = Driver::where('user_id', Auth::id())->first();
+
+        if (! $driver) {
+            return response()->json(['message' => 'Authenticated user is not a registered driver'], 403);
+        }
+
+        return new DriverResource($driver);
+    }
+
     /**
      * List rides assigned to the authenticated driver.
      *
