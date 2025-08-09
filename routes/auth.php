@@ -1,118 +1,50 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegistrationController;
-use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\NewPasswordController;
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
-// Public routes
+// LOGIN - issue JWT token as HTTP-only cookie
+Route::post('/login', function (Request $request) {
+    $credentials = $request->only('email', 'password');
 
-/**
- * Register a new user.
- *
- * @bodyParam name string required The user's full name.
- * @bodyParam email string required Must be a valid, unique email.
- * @bodyParam password string required The user’s password.
- * @bodyParam password_confirmation string required Must match password.
- * @response 201 {
- *   "user": { "id": 1, "email": "michael@example.com", "role", "rider" },
- *   "access_token": "token-string",
- *   "token_type": "Bearer"
- * }
- */
-Route::post('/register', [RegistrationController::class, 'register']);
+    if (!$token = Auth::attempt($credentials)) {
+        return response()->json(['error' => 'Invalid credentials'], 401);
+    }
 
-/**
- * Log in a user and return an access token.
- *
- * @bodyParam email string required The user’s email.
- * @bodyParam password string required The user’s password.
- * @response 200 {
- *   "user": { "id": 1, "email": "michael@example.com" },
- *   "access_token": "token-string",
- *   "token_type": "Bearer"
- * }
- */
-Route::post('/login', [LoginController::class, 'login']);
+    // Set JWT token in secure HttpOnly cookie (7 days)
+    return response()->json(['message' => 'Logged in'])
+        ->cookie('token', $token, 60 * 24 * 7, '/', null, false, true);
+});
 
-/**
- * Send password reset link to the user's email.
- *
- * @bodyParam email string required A valid registered email.
- * @response 200 {
- *   "status": "Password reset link sent to your email."
- * }
- */
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'sendResetLink']);
+// LOGOUT - clear the JWT token cookie
+Route::post('/logout', function () {
+    return response()->json(['message' => 'Logged out'])
+        ->cookie('token', '', -1, '/');
+});
 
-/**
- * Reset password using token.
- *
- * @bodyParam email string required The user's email.
- * @bodyParam token string required The reset token.
- * @bodyParam password string required The new password.
- * @bodyParam password_confirmation string required Must match password.
- * @response 200 {
- *   "status": "Your password has been reset!"
- * }
- */
-Route::post('/reset-password', [NewPasswordController::class, 'reset']);
+// GET CURRENT AUTHENTICATED USER based on JWT token in cookie
+Route::get('/user', function (Request $request) {
+    $token = $request->cookie('token');
 
-/**
- * Handle email verification via secure link.
- *
- * The link is generated and sent via notification.
- *
- * @urlParam id integer required The user’s ID.
- * @urlParam hash string required The SHA1 hash of the email.
- * @response 302 Redirect to frontend with verification status.
- */
-Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-    ->name('verification.verify')
-    ->middleware(['signed']);
+    if (!$token) {
+        return response()->json(['error' => 'Not authenticated'], 401);
+    }
 
+    try {
+        $user = JWTAuth::setToken($token)->authenticate();
 
-// Protected routes
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
 
-Route::middleware('auth:sanctum')->group(function () {
-
-    /**
-     * Log out the authenticated user.
-     *
-     * @authenticated
-     * @response 200 {
-     *   "message": "Logged out"
-     * }
-     */
-    Route::post('/logout', [LogoutController::class, 'logout']);
-
-    /**
-     * Resend email verification notification.
-     *
-     * Useful if the initial email was not received.
-     *
-     * @authenticated
-     * @response 202 {
-     *   "message": "Verification email sent."
-     * }
-     */
-    Route::post('/email/verify/resend', [EmailVerificationController::class, 'resend']);
-
-    /**
-     * Get current authenticated user.
-     *
-     * Returns user details based on token.
-     *
-     * @authenticated
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Michael Mwanza",
-     *   "email": "michael@example.com"
-     * }
-     */
-    Route::get('/me', fn() => response()->json(request()->user()));
+        return response()->json($user);
+    } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+        return response()->json(['error' => 'Token expired'], 401);
+    } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+        return response()->json(['error' => 'Invalid token'], 401);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Could not authenticate user'], 401);
+    }
 });
