@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\RideStatus;
 use App\Events\RideRequested;
+use App\Events\RideAccepted;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RideResource;
 use App\Models\Ride;
@@ -176,6 +177,29 @@ class RideController extends Controller
             'message' => 'Ride cancelled after acceptance',
             'reason' => $validated['reason'],
             'data' => new RideResource($ride),
+        ]);
+    }
+
+     public function acceptRide($rideId)
+    {
+        $ride = Ride::findOrFail($rideId);
+        
+        // Validate the ride can be accepted
+        if ($ride->status !== RideStatus::REQUESTED->value) {
+            return response()->json(['message' => 'Ride is not in a state that can be accepted'], 400);
+        }
+
+        $ride->update([
+            'status' => RideStatus::ACCEPTED->value,
+            'driver_id' => auth()->id()
+        ]);
+
+        // Broadcast to the rider's private channel
+        broadcast(new RideAccepted($ride))->toOthers();
+
+        return response()->json([
+            'message' => 'Ride accepted',
+            'ride' => new RideResource($ride)
         ]);
     }
 }

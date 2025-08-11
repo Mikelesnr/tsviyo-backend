@@ -31,3 +31,4 @@ class RideAccepted implements ShouldBroadcast
         return 'RideAccepted';
     }
 }
+
