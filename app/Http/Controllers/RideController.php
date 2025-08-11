@@ -175,16 +175,26 @@ class RideController extends Controller
         ]);
     }
 
-    public function acceptRide($rideId)
+     public function acceptRide($rideId)
     {
         $ride = Ride::findOrFail($rideId);
-        $ride->status = 'accepted';
-        $ride->driver_id = auth()->id();
-        $ride->save();
+        
+        // Validate the ride can be accepted
+        if ($ride->status !== RideStatus::REQUESTED->value) {
+            return response()->json(['message' => 'Ride is not in a state that can be accepted'], 400);
+        }
 
-        // ✅ Broadcast to ride-specific channel
+        $ride->update([
+            'status' => RideStatus::ACCEPTED->value,
+            'driver_id' => auth()->id()
+        ]);
+
+        // Broadcast to the rider's private channel
         broadcast(new RideAccepted($ride))->toOthers();
 
-        return response()->json(['message' => 'Ride accepted', 'ride' => $ride]);
+        return response()->json([
+            'message' => 'Ride accepted',
+            'ride' => new RideResource($ride)
+        ]);
     }
 }
