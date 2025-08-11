@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class RideAccepted implements ShouldBroadcast
+class RideCancelled implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -28,7 +28,6 @@ class RideAccepted implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'RideAccepted';
+        return 'RideCancelled';
     }
 }
-

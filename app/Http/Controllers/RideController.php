@@ -11,6 +11,7 @@ use App\Models\Ride;
 use App\Models\Rider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\RideCancelled;
 
 class RideController extends Controller
 {
@@ -137,6 +138,8 @@ class RideController extends Controller
 
         $ride->update(['status' => RideStatus::CANCELED]);
 
+        broadcast(new RideCancelled($ride));
+
         return new RideResource($ride);
     }
 
@@ -167,6 +170,8 @@ class RideController extends Controller
         ]);
 
         $ride->update(['status' => RideStatus::CANCELED]);
+
+        broadcast(new RideCancelled($ride));
 
         return response()->json([
             'message' => 'Ride cancelled after acceptance',

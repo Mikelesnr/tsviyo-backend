@@ -9,6 +9,7 @@ use App\Http\Resources\DriverResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\RideStatus;
+use App\Events\RideAccepted;
 
 class DriverController extends Controller
 {
@@ -93,6 +94,8 @@ class DriverController extends Controller
             'driver_id' => $driver->id,
             'status' => RideStatus::ACCEPTED,
         ]);
+
+        broadcast(new RideAccepted($ride));
 
         return new RideResource($ride);
     }
