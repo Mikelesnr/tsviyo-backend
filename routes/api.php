@@ -161,7 +161,7 @@ Route::get('/debug', function () {
 });
 
 Route::get('/test-pusher', function () {
-    event(new \App\Events\RideRequested([
+    event(new \App\Events\RideAccepted([
         'rider_id' => 1,
         'pickup_lat' => -17.7978,
         'pickup_lng' => 31.1259,
