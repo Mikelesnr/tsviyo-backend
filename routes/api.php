@@ -178,16 +178,16 @@ Route::get('/test-pusher', function () {
 });
 
 Route::get('/test-accept/{rideId}', function ($rideId) {
-    \Log::info("=== TEST ACCEPT RIDE {$rideId} ===");
-    
+    Log::info("=== TEST ACCEPT RIDE {$rideId} ===");
+
     $ride = \App\Models\Ride::with('rider')->find($rideId);
-    
+
     if (!$ride) {
-        \Log::error("Ride not found");
+        Log::error("Ride not found");
         return response()->json(['error' => 'Ride not found'], 404);
     }
 
-    \Log::info("Ride details:", [
+    Log::info("Ride details:", [
         'id' => $ride->id,
         'rider_id' => $ride->rider_id,
         'status' => $ride->status
@@ -196,11 +196,11 @@ Route::get('/test-accept/{rideId}', function ($rideId) {
     // Update ride
     $ride->update(['status' => \App\Enums\RideStatus::ACCEPTED]);
 
-    \Log::info("Attempting to broadcast to channel: ride.updates.{$ride->rider_id}");
+    Log::info("Attempting to broadcast to channel: ride.updates.{$ride->rider_id}");
     event(new \App\Events\RideAccepted($ride));
 
-    \Log::info("Broadcast complete");
-    
+    Log::info("Broadcast complete");
+
     return response()->json([
         'success' => true,
         'channel' => 'ride.updates.' . $ride->rider_id,
