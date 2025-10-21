@@ -53,6 +53,7 @@ class RegistrationController extends Controller
             'phone' => $validated['phone'], // now stored as nullable
             'password' => Hash::make($validated['password']),
             'role' => $validated['role'] ?? UserRole::Rider->value,
+            'email_verified_at' => now(),
         ]);
 
         // Send email verification
