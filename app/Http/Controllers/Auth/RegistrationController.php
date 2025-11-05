@@ -56,8 +56,8 @@ class RegistrationController extends Controller
             'email_verified_at' => now(),
         ]);
 
-        // Send email verification
-        $user->sendEmailVerificationNotification();
+        // Send email verification turned off because render free tier blocks port 587
+        // $user->sendEmailVerificationNotification();
 
         $token = $user->createToken('registration_token')->plainTextToken;
 
